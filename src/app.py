@@ -74,6 +74,12 @@ activities = {
         "schedule": "Fridays, 4:00 PM - 5:30 PM",
         "max_participants": 12,
         "participants": ["charlotte@mergington.edu", "henry@mergington.edu"]
+    },
+    "Cricket Club": {
+        "description": "Join our cricket team and represent the Man with Blue Indian team colors. Learn cricket fundamentals, practice batting and bowling techniques, and compete in inter-school matches",
+        "schedule": "Monday to Friday, 4:40 PM - 5:00 PM",
+        "max_participants": 10,
+        "participants": []
     }
 }
 
