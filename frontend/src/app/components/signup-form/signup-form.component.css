@@ -1,0 +1,41 @@
+.signup-section h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--citi-blue);
+}
+
+.form-control.error {
+  border-color: var(--citi-red);
+  box-shadow: 0 0 0 2px rgba(220, 20, 60, 0.1);
+}
+
+.error-message {
+  color: var(--citi-red);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.btn-full {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn:disabled:hover {
+  background-color: var(--citi-blue);
+  transform: none;
+}
+
+select.form-control {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 12px center;
+  background-repeat: no-repeat;
+  background-size: 16px 12px;
+  padding-right: 40px;
+  appearance: none;
+}

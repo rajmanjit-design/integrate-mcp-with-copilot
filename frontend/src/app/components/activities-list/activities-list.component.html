@@ -1,0 +1,28 @@
+<section class="activities-section">
+  <h2>Available Clubs and Teams</h2>
+  
+  <div class="alert alert-success" *ngIf="message">
+    {{ message }}
+  </div>
+  
+  <div class="alert alert-error" *ngIf="error">
+    {{ error }}
+  </div>
+  
+  <div class="loading" *ngIf="loading">
+    <p>Loading activities...</p>
+  </div>
+  
+  <div class="activities-grid" *ngIf="!loading">
+    <app-activity-card
+      *ngFor="let activity of activitiesArray"
+      [activityName]="activity.name"
+      [activity]="activity.data"
+      (unregister)="onUnregister($event)">
+    </app-activity-card>
+  </div>
+  
+  <div class="no-activities" *ngIf="!loading && activitiesArray.length === 0">
+    <p>No activities available at the moment.</p>
+  </div>
+</section>

@@ -1,0 +1,86 @@
+.activity-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--citi-blue);
+}
+
+.availability {
+  margin-top: 8px;
+}
+
+.spots-left {
+  background-color: var(--citi-light-blue);
+  color: var(--citi-blue);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.description {
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.schedule {
+  margin-bottom: 20px;
+  color: var(--citi-gray-700);
+}
+
+.participants-section h4 {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--citi-gray-800);
+}
+
+.participants-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.participant-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--citi-gray-200);
+}
+
+.participant-item:last-child {
+  border-bottom: none;
+}
+
+.participant-email {
+  font-size: 14px;
+  color: var(--citi-gray-700);
+}
+
+.unregister-btn {
+  padding: 4px 8px;
+  font-size: 16px;
+  line-height: 1;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.unregister-btn:hover {
+  transform: scale(1.1);
+}
+
+.no-participants {
+  color: var(--citi-gray-500);
+  font-style: italic;
+  margin: 0;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 12px;
+}

@@ -1,23 +1,37 @@
 """
-High School Management System API
+Citigroup Clubs and Teams Management System
 
-A super simple FastAPI application that allows students to view and sign up
-for extracurricular activities at Mergington High School.
+A FastAPI application that allows employees to view and sign up
+for clubs and teams at Citigroup.
 """
 
 from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
+from fastapi.middleware.cors import CORSMiddleware
 import os
 from pathlib import Path
 
-app = FastAPI(title="Mergington High School API",
-              description="API for viewing and signing up for extracurricular activities")
+app = FastAPI(title="Citigroup Clubs and Teams API",
+              description="API for viewing and signing up for clubs and teams")
 
-# Mount the static files directory
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:4200"],  # Angular dev server
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Mount the Angular build files directory
 current_dir = Path(__file__).parent
-app.mount("/static", StaticFiles(directory=os.path.join(Path(__file__).parent,
-          "static")), name="static")
+frontend_build_dir = current_dir / "frontend" / "dist" / "frontend"
+
+if frontend_build_dir.exists():
+    app.mount("/static", StaticFiles(directory=str(frontend_build_dir)), name="static")
+else:
+    app.mount("/static", StaticFiles(directory=os.path.join(Path(__file__).parent,
+              "static")), name="static")
 
 # In-memory activity database
 activities = {
@@ -86,7 +100,11 @@ activities = {
 
 @app.get("/")
 def root():
-    return RedirectResponse(url="/static/index.html")
+    frontend_build_dir = Path(__file__).parent / "frontend" / "dist" / "frontend"
+    if frontend_build_dir.exists():
+        return RedirectResponse(url="/static/index.html")
+    else:
+        return RedirectResponse(url="/static/index.html")
 
 
 @app.get("/activities")
@@ -94,45 +112,43 @@ def get_activities():
     return activities
 
 
-@app.post("/activities/{activity_name}/signup")
-def signup_for_activity(activity_name: str, email: str):
-    """Sign up a student for an activity"""
+@app.post("/activities/signup")
+def signup_for_activity(email: str, activity: str):
+    """Sign up an employee for a club or team"""
     # Validate activity exists
-    if activity_name not in activities:
+    if activity not in activities:
         raise HTTPException(status_code=404, detail="Activity not found")
 
     # Get the specific activity
-    activity = activities[activity_name]
+    activity_data = activities[activity]
 
-    # Validate student is not already signed up
-    if email in activity["participants"]:
+    # Validate employee is not already signed up
+    if email in activity_data["participants"]:
         raise HTTPException(
             status_code=400,
-            detail="Student is already signed up"
+            detail="Employee is already signed up"
         )
 
-    # Add student
-    activity["participants"].append(email)
-    return {"message": f"Signed up {email} for {activity_name}"}
+    activity_data["participants"].append(email)
+    return {"message": f"Signed up {email} for {activity}"}
 
 
-@app.delete("/activities/{activity_name}/unregister")
-def unregister_from_activity(activity_name: str, email: str):
-    """Unregister a student from an activity"""
+@app.post("/activities/unregister")
+def unregister_from_activity(email: str, activity: str):
+    """Unregister an employee from a club or team"""
     # Validate activity exists
-    if activity_name not in activities:
+    if activity not in activities:
         raise HTTPException(status_code=404, detail="Activity not found")
 
     # Get the specific activity
-    activity = activities[activity_name]
+    activity_data = activities[activity]
 
-    # Validate student is signed up
-    if email not in activity["participants"]:
+    # Validate employee is signed up
+    if email not in activity_data["participants"]:
         raise HTTPException(
             status_code=400,
-            detail="Student is not signed up for this activity"
+            detail="Employee is not signed up for this activity"
         )
 
-    # Remove student
-    activity["participants"].remove(email)
-    return {"message": f"Unregistered {email} from {activity_name}"}
+    activity_data["participants"].remove(email)
+    return {"message": f"Unregistered {email} from {activity}"}

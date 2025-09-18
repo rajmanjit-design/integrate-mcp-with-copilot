@@ -1,0 +1,53 @@
+<div class="signup-section">
+  <h2>Join a Club or Team</h2>
+  
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="signup-form">
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        placeholder="Enter your Citigroup email"
+        [class.error]="isFieldInvalid('email')"
+      />
+      <div class="error-message" *ngIf="isFieldInvalid('email')">
+        <span *ngIf="signupForm.get('email')?.errors?.['required']">Email is required</span>
+        <span *ngIf="signupForm.get('email')?.errors?.['email']">Please enter a valid email address</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="activity">Select Club/Team</label>
+      <select
+        id="activity"
+        formControlName="activity"
+        [class.error]="isFieldInvalid('activity')"
+      >
+        <option value="">Choose a club or team</option>
+        <option *ngFor="let activity of activitiesArray" [value]="activity.name">
+          {{ activity.name }} ({{ getAvailabilityText(activity.data) }})
+        </option>
+      </select>
+      <div class="error-message" *ngIf="isFieldInvalid('activity')">
+        <span *ngIf="signupForm.get('activity')?.errors?.['required']">Please select a club or team</span>
+      </div>
+    </div>
+
+    <button 
+      type="submit" 
+      class="submit-btn"
+      [disabled]="signupForm.invalid || submitting"
+    >
+      {{ submitting ? 'Signing up...' : 'Sign Up' }}
+    </button>
+  </form>
+
+  <div class="success-message" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+
+  <div class="error-message" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="activity-title">{{ activityName }}</h3>
+    <div class="availability">
+      <span class="availability">{{ getAvailabilityText() }}</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <p class="description">{{ activity.description }}</p>
+    <p class="schedule"><strong>Schedule:</strong> {{ activity.schedule }}</p>
+    
+    <div class="participants-section" *ngIf="activity.participants.length > 0">
+      <h4>Participants:</h4>
+      <ul class="participants-list">
+        <li *ngFor="let participant of activity.participants" class="participant-item">
+          <span class="participant-email">{{ participant }}</span>
+          <button 
+            class="btn btn-danger btn-sm unregister-btn" 
+            (click)="onUnregister(participant)"
+            title="Unregister {{ participant }}">
+            ×
+          </button>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="participants-section" *ngIf="activity.participants.length === 0">
+      <p class="no-participants">No participants yet. Be the first to join!</p>
+    </div>
+  </div>
+</div>
