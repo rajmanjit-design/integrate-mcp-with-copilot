@@ -1,0 +1,27 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 40px 0;
+}
+
+@media (min-width: 768px) {
+  main {
+    flex-direction: row;
+    gap: 60px;
+  }
+  
+  app-activities-list {
+    flex: 2;
+  }
+  
+  app-signup-form {
+    flex: 1;
+  }
+}
